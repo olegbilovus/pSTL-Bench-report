@@ -33,11 +33,11 @@
 Writing performance-portable and efficient parallel applications remains a
 significant challenge due to the diversity of modern hardware architectures.
 The emergence of parallel programming frameworks and, more recently, the
-introduction of parallel algorithms in the C++17 Standard Template Library
-(STL) aim to address this challenge by enabling developers to write code that
-runs efficiently across CPUs and GPUs using a standardized interface.
+introduction of parallel algorithms in the \textit{C++17 Standard Template
+  Library (STL)} aim to address this challenge by enabling developers to write
+code that runs efficiently across CPUs and GPUs using a standardized interface.
 
-pSTL-Bench\cite{pSTL-Bench} is a benchmark suite originally developed to
+\textit{pSTL-Bench}~\cite{pSTL-Bench} is a benchmark suite originally developed to
 quantitatively evaluate the performance of individual parallel STL algorithms
 across various compiler frameworks (such as GCC, Intel's icpx, NVIDIA HPC SDK)
 and backends (including TBB, HPX, OpenMP, and CUDA). It provides a focused,
@@ -45,23 +45,23 @@ micro-benchmarking approach that avoids the complexities of full applications
 and highlights the relative performance characteristics of different STL
 implementations.
 
-In this work, I reproduce the main results and experiments presented in the
-original pSTL-Bench paper. Beyond reproduction, I extend the project by adding
-support for the oneAPI DPC++ Library (oneDPL) backend, enabling the evaluation
-of Intel’s parallel STL implementation based on the SYCL programming model on
-CPU and GPU.
+In this work, the main results and experiments from the original
+pSTL-Bench paper are reproduced. Beyond reproduction, the project is
+then extended by incorporating support for the \textit{oneAPI DPC++ Library
+  (oneDPL)} backend, enabling the evaluation of Intel’s parallel STL
+implementation based on the \textit{SYCL programming model} on both CPU and GPU
+platforms
 
-To further enhance the usability and reproducibility of the benchmark suite, I
-introduce automation tools including Ansible playbooks for environment setup
-and benchmark execution, R scripts for performance analysis, and expanded
+To further enhance the usability and reproducibility of the benchmark suite,
+automation tools are introduced, including Ansible playbooks for environment
+setup and benchmark execution, R scripts for performance analysis, and expanded
 documentation for ease of deployment and adding new backends.
 
-\mypar{Related Work} This work builds directly on pSTL-Bench,
-while performance portability and parallelism have been widely studied in
-the context of full applications and frameworks such as Kokkos\cite{Kokkos}
-and RAJA\cite{RAJA}, to the best of my knowledge, no prior work has reproduced or
-extended pSTL-Bench, nor added support for the oneDPL backend or focused on improving
-its reproducibility.
+\mypar{Related Work} This work builds directly on pSTL-Bench.
+While performance portability and parallelism have been widely studied in
+the context of full applications and frameworks such as Kokkos~\cite{Kokkos}
+and RAJA~\cite{RAJA}, no prior work has reproduced or extended pSTL-Bench,
+nor added support for the oneDPL backend or focused on improving its reproducibility.
 
 \section{Background: Whatever the Background is}\label{sec:background}
 
