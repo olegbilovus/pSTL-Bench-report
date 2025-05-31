@@ -1,32 +1,24 @@
-\documentclass[conference]{IEEEtran}
-%\usepackage{spconf,amsmath,amssymb,graphicx}
-\usepackage{amsmath,amssymb,graphicx}
-\usepackage{hyperref}
+\documentclass[sigconf]{acmart}
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
 
-\hypersetup{
-    colorlinks=false,
-    pdfborder={0 0 0}
-}
+\usepackage{balance}
 
-% Example definitions.
-% --------------------
-% nice symbols for real and complex numbers
-\newcommand{\R}[0]{\mathbb{R}}
-\newcommand{\C}[0]{\mathbb{C}}
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
 
-\begin{document}
-
+% Metadata
 \title{Extending and Reproducing pSTL-Bench: oneDPL Backend Integration and Enhanced Reproducibility}
 
-\author{\IEEEauthorblockN{Oleg Bilovus}
-  \IEEEauthorblockA{Department of Computer Science\\
-    University of Salerno\\
-    Italy}
+\author{Oleg Bilovus}
+\affiliation{
+  \institution{Department of Computer Science, University of Salerno}
+  \city{Fisciano (SA)}
+  \country{Italy}
 }
 
-\maketitle
+\balance{}
+\begin{document}
 
 \begin{abstract}
   Describe in concise words what you do, why you do it (not necessarily
@@ -34,6 +26,8 @@
   self-contained and readable for a person in the general area. You
   should write the abstract last.
 \end{abstract}
+
+\maketitle
 
 \section{Introduction}\label{sec:intro}
 Writing performance-portable and efficient parallel applications remains a
@@ -134,6 +128,7 @@ Next divide the experiments into classes, one paragraph for each. In each class 
   \caption{Performance of four single precision implementations of the
     discrete Fourier transform. The operations count is roughly the
     same. The labels in this plot are maybe a little bit too small.\label{fftperf}}
+  \Description{A line plot comparing the performance of four single precision discrete Fourier transform implementations, showing similar operation counts and varying label sizes.}
 \end{figure}
 
 \section{Conclusions}
@@ -195,6 +190,7 @@ from Matlab, you can export to eps.
 The format pdf is also fine for plots (you need pdflatex then), but only if the
 plot was never before in the format jpeg, gif, bmp, tif.
 
+\bibliographystyle{ACM-Reference-Format}
 \begin{thebibliography}{1}
 
   \bibitem{pSTL-Bench}
