@@ -1,8 +1,8 @@
 \documentclass[sigconf]{acmart}
+\usepackage{balance}
+
 \settopmatter{printacmref=false}
 \renewcommand\footnotetextcopyrightpermission[1]{}
-
-\usepackage{balance}
 
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
@@ -190,6 +190,7 @@ from Matlab, you can export to eps.
 The format pdf is also fine for plots (you need pdflatex then), but only if the
 plot was never before in the format jpeg, gif, bmp, tif.
 
+\balance{}
 \bibliographystyle{ACM-Reference-Format}
 \begin{thebibliography}{1}
 
