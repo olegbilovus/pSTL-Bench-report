@@ -45,12 +45,11 @@ micro-benchmarking approach that avoids the complexities of full applications
 and highlights the relative performance characteristics of different STL
 implementations.
 
-In this work, the main results and experiments from the original
-pSTL-Bench paper are reproduced. Beyond reproduction, the project is
-then extended by incorporating support for the \textit{oneAPI DPC++ Library
-  (oneDPL)} backend, enabling the evaluation of Intel’s parallel STL
-implementation based on the \textit{SYCL programming model} on both CPU and GPU
-platforms
+\mypar{This Work} In this work, the main results and experiments from the original pSTL-Bench
+paper are reproduced. Beyond reproduction, the project is then extended by
+incorporating support for the \textit{oneAPI DPC++ Library (oneDPL)} backend,
+enabling the evaluation of Intel’s parallel STL implementation based on the
+\textit{SYCL programming model} on both CPU and GPU platforms
 
 To further enhance the usability and reproducibility of the benchmark suite,
 automation tools are introduced, including Ansible playbooks for environment
@@ -59,29 +58,57 @@ documentation for ease of deployment and adding new backends.
 
 \mypar{Related Work} This work builds directly on pSTL-Bench.
 While performance portability and parallelism have been widely studied in
-the context of full applications and frameworks such as Kokkos~\cite{Kokkos}
+the context of full applications~\cite{app} and frameworks such as Kokkos~\cite{Kokkos}
 and RAJA~\cite{RAJA}, no prior work has reproduced or extended pSTL-Bench,
 nor added support for the oneDPL backend or focused on improving its reproducibility.
 
-\section{Background: Whatever the Background is}\label{sec:background}
+\section{Background}\label{sec:background}
+This section introduces the relevant concepts and context for evaluating the
+scalability of parallel algorithms implemented in the C++ Standard Template
+Library (STL). It defines the scope of the problem, outlines the algorithms
+under analysis, and describes the supporting frameworks and benchmarking
+strategies used for performance assessment.
 
-Give a short, self-contained summary of necessary background information. For
-example, assume you present an implementation of sorting algorithms. You could
-organize into sorting definition, algorithms considered, and asymptotic runtime
-statements. The goal of the background section is to make the paper
-self-contained for an audience as large as possible. As in every section you
-start with a very brief overview of the section. Here it could be as follows:
-In this section we formally define the sorting problem we consider and
-introduce the algorithms we use including a cost analysis.
+\mypar{Parallel STL in C++} Since C++17, the Standard Template Library (STL) includes parallel versions  
+of many common algorithms, enabling hardware parallelism through  
+familiar interfaces. Compiler support varies, relying on different  
+runtimes and libraries to target platforms such as multi-core CPUs  
+and GPUs, with differences in scheduling, memory use, and synchronization.  
 
-\mypar{Sorting}
-Precisely define sorting problem you consider.
 
-\mypar{Sorting algorithms}
-Explain the algorithm you use including their costs.
+\mypar{Problem Definition} The primary objective is to analyze how different implementations
+of parallel STL algorithms scale with increasing problem sizes and hardware resources.
+This includes identifying the computational overheads and the performance gains achieved
+through parallel execution. A detailed performance comparison is necessary to understand
+which combinations of compilers and backends provide the most efficient use of available
+computing resources.
 
-As an aside, don't talk about "the complexity of the algorithm.'' It's
-incorrect, problems have a complexity, not algorithms.
+\mypar{Algorithms} The study focuses on five representative algorithms that embody diverse computational patterns:
+\begin{itemize}
+  \item \textbf{find} – Searches for a target value within a range using linear traversal.
+  \item \textbf{for\_each} – Executes a loop with $k_{it}$ increments per element to simulate computation and stores the result.
+        $k_{it}$ is a parameter that can be adjusted to control the workload.
+  \item \textbf{inclusive\_scan} – Produces a prefix sum, where each element in the output is the sum of all previous elements
+        plus the current element, requiring synchronization.
+  \item \textbf{reduce} – Computes a single result by summing all elements in a range, which can be parallelized
+        but requires synchronization to combine results.
+  \item \textbf{sort} – Rearranges elements into ascending order, requiring synchronization and data movement.
+\end{itemize}
+
+\mypar{Backends} In this work, support for the \textit{oneAPI DPC++ Library (oneDPL)} is added, which is based on the SYCL
+programming model and enables parallel STL execution on both CPUs and GPUs.
+
+The original pSTL-Bench suite includes the following backends:
+\begin{itemize}
+  \item \textbf{GNU Parallel STL} – The GCC implementation of parallel algorithms using OpenMP.
+  \item \textbf{TBB} – A C++ library offering task-based parallel algorithms and data structures.
+  \item \textbf{HPX} – A C++ runtime for fine-grained parallel and distributed applications.
+  \item \textbf{OpenMP} – A standard API for shared-memory parallel programming.
+  \item \textbf{CUDA} – NVIDIA’s platform for general-purpose GPU computing.
+\end{itemize}
+
+The evaluation covers various compiler-backend combinations, including those
+based on GNU, Intel, and NVIDIA compilers.
 
 \section{Your Proposed Method}\label{sec:yourmethod}
 
@@ -198,6 +225,11 @@ plot was never before in the format jpeg, gif, bmp, tif.
   R. Laso, D. Krupitza, and S. Hunold, ``Exploring Scalability in C++ Parallel STL Implementations'' in \textit{Proceedings of the 53rd International Conference on Parallel Processing (ICPP '24)},
   Association for Computing Machinery, New York, NY, USA, 2024, pp. 284--293.
   \url{https://doi.org/10.1145/3673038.3673065}
+
+  \bibitem{app}
+  W. -C. Lin, T. Deakin and S. McIntosh-Smith, ``Evaluating ISO C++ Parallel Algorithms on Heterogeneous HPC Systems'' in  \textit{2022 IEEE/ACM International Workshop on Performance Modeling, Benchmarking and Simulation of High Performance Computer Systems (PMBS)},
+  Dallas, TX, USA, 2022, pp. 36-47.
+  \url{https://doi.org/10.1109/PMBS56514.2022.00009}
 
   \bibitem{Kokkos}
   H. C. Edwards and C. R. Trott, ``Kokkos: Enabling Performance Portability Across Manycore Architectures'' \textit{2013 Extreme Scaling Workshop (xsw 2013)},
