@@ -75,7 +75,6 @@ familiar interfaces. Compiler support varies, relying on different
 runtimes and libraries to target platforms such as multi-core CPUs  
 and GPUs, with differences in scheduling, memory use, and synchronization.  
 
-
 \mypar{Problem Definition} The primary objective is to analyze how different implementations
 of parallel STL algorithms scale with increasing problem sizes and hardware resources.
 This includes identifying the computational overheads and the performance gains achieved
@@ -109,6 +108,16 @@ The original pSTL-Bench suite includes the following backends:
 
 The evaluation covers various compiler-backend combinations, including those
 based on GNU, Intel, and NVIDIA compilers.
+
+\mypar{Automation} To facilitate reproducibility and ease of use, the project includes automation tools:
+\begin{itemize}
+  \item \textbf{Ansible} – An agentless automation tool that simplifies the setup of the benchmark environment,
+        including installation of dependencies, configuration of the system, compilation of the benchmark suite, and execution of tests.
+  \item \textbf{Semaphore UI} – A web-based interface for managing and monitoring the execution of ansible playbooks,
+        providing a user-friendly way to trigger tests and view results.
+  \item \textbf{R Scripts} – Scripts for analyzing performance data, generating plots similar to those in the original paper.
+        and providing insights into the performance characteristics of different implementations.
+\end{itemize}
 
 \section{Your Proposed Method}\label{sec:yourmethod}
 
@@ -149,14 +158,6 @@ Next divide the experiments into classes, one paragraph for each. In each class 
         from the plot in its discussion.
   \item Every plot should be referenced and discussed.
 \end{itemize}
-
-\begin{figure}\centering
-  \includegraphics[scale=0.33]{example-plot}
-  \caption{Performance of four single precision implementations of the
-    discrete Fourier transform. The operations count is roughly the
-    same. The labels in this plot are maybe a little bit too small.\label{fftperf}}
-  \Description{A line plot comparing the performance of four single precision discrete Fourier transform implementations, showing similar operation counts and varying label sizes.}
-\end{figure}
 
 \section{Conclusions}
 
