@@ -150,25 +150,24 @@ with the hardware specifications shown in Table~\ref{tab:hardware-config}.
 
 \begin{table}[h]
       \centering
-      \caption{Hardware configuration}
-      \label{tab:hardware-config}
+      \caption{Hardware configuration}\label{tab:hardware-config}
       \begin{tabular}{|l|l|}
             \hline
-            \multicolumn{2}{|c|}{\textbf{CPU}~\cite{cpu_specs}}   \\
+            \multicolumn{2}{|c|}{\textbf{CPU}~\cite{cpu_specs}} \\
             \hline
-            Processor          & Intel Core i9-13900HX            \\
-            Cores              & 24 (8 P-cores + 16 E-cores)      \\
-            Core Frequency     & 2.20 GHz (up to 5.40 GHz)        \\
-            Threads            & 32 threads                       \\
-            Memory             & 32 GB RAM                        \\
+            Processor      & Intel Core i9-13900HX              \\
+            Cores          & 24 (8 P-cores + 16 E-cores)        \\
+            Core Frequency & 2.20 GHz (up to 5.40 GHz)          \\
+            Threads        & 32 threads                         \\
+            Memory         & 32 GB RAM                          \\
             \hline
             \hline
-            \multicolumn{2}{|c|}{\textbf{GPU}~\cite{gpu_specs}}   \\
+            \multicolumn{2}{|c|}{\textbf{GPU}~\cite{gpu_specs}} \\
             \hline
-            GPU                & NVIDIA GeForce RTX 4070 (mobile) \\
-            CUDA Cores         & 4608 CUDA cores                  \\
-            Core Frequency     & 1230 MHz (up to 2175 MHz)        \\
-            Memory             & 8 GB GDDR6 VRAM                  \\
+            GPU            & NVIDIA GeForce RTX 4070 (mobile)   \\
+            CUDA Cores     & 4608 CUDA cores                    \\
+            Core Frequency & 1230 MHz (up to 2175 MHz)          \\
+            Memory         & 8 GB GDDR6 VRAM                    \\
             \hline
       \end{tabular}
 \end{table}
@@ -185,8 +184,7 @@ The compilers and libraries used in the experiments are listed in Table~\ref{tab
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \caption{Compilers}
-            \label{tab:compilers}
+            \caption{Compilers}\label{tab:compilers}
             \begin{tabular}{|l|l|}
                   \hline
                   \textbf{Compiler} & \textbf{Version} \\
@@ -200,8 +198,7 @@ The compilers and libraries used in the experiments are listed in Table~\ref{tab
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \caption{Libraries}
-            \label{tab:libraries}
+            \caption{Libraries}\label{tab:libraries}
             \begin{tabular}{|l|l|}
                   \hline
                   \textbf{Library} & \textbf{Version} \\
@@ -216,11 +213,13 @@ The compilers and libraries used in the experiments are listed in Table~\ref{tab
       \end{minipage}
 \end{table}
 
-\mypar{Benchmark Configuration}
-All benchmarks were configured the same as the original study, with one exception:
-the problem size in certain experiments was reduced from $2^{30}$ to $2^{29}$.
-This change was necessary because the oneDPL backend crashed on the GPU when using the larger problem size.
-Listing~\ref{lst:onedpl-error} shows the error message produced during execution with the original size.
+\section{Experiment Details}\label{sec:exp_details}
+All aspects of the original pSTL-Bench experiments are replicated in this work,
+with one exception: the problem size in certain experiments is reduced from
+$2^{30}$ to $2^{29}$. This adjustment was necessary due to runtime crashes
+encountered by the oneDPL backend on the GPU when using the larger problem
+size. The corresponding error message is shown in
+Listing~\ref{lst:onedpl-error}.
 
 \begin{lstlisting}[style=errorlog, caption={oneDPL GPU runtime error output}, label={lst:onedpl-error}]
 <CUDA>[ERROR]: 
@@ -243,33 +242,52 @@ terminate called after throwing an instance of 'sycl::_V1::exception'
   what():  Native API failed. Native API returns: 38 (UR_RESULT_ERROR_OUT_OF_HOST_MEMORY)
 \end{lstlisting}
 
-\section{Experimental Results}\label{sec:exp}
+\section{Experimental Results}
 
-Here you evaluate your work using experiments. You start again with a very
-short summary of the section. The typical structure follows.
+This section presents the results of experiments designed to evaluate the
+performance of parallel STL algorithms across various compiler-backend
+combinations. While each experiment references the original results from the
+pSTL-Bench paper, those plots are not reproduced here. Readers are encouraged
+to consult the original publication for direct visual comparisons.
 
-\mypar{Experimental setup} Specify the platform (processor, frequency, maybe OS, maybe cache sizes)
-as well as the compiler, version, and flags used. If your work is about performance,
-I strongly recommend that you play with optimization flags and consider also icc for additional potential speedup.
-
-Then explain what kind of benchmarks you ran. The idea is to give enough
-information so the experiments are reproducible by somebody else on his or her
-code. For sorting you would talk about the input sizes. For a tool that
-performs NUMA optimization, you would specify the programs you ran.
-
-\mypar{Results}
-Next divide the experiments into classes, one paragraph for each. In each class of experiments you typically pursue one questions that then is answered by a suitable plot or plots. For example, first you may want to investigate the performance behavior with changing input size, then how your code compares to external benchmarks.
-
-      {\bf Comments:}
+The compiler names used in the plots differ from those in the original
+pSTL-Bench paper, as they are directly generated by the benchmarking tool.
+These names can be mapped to their original counterparts as follows:
 \begin{itemize}
-      \item Create very readable, attractive plots (do 1 column, not 2 column plots for
-            this report) with readable font size. However, the font size should also not be
-            too large; typically it is smaller than the text font size. An example is in
-            Fig. (of course you can have a different style).
-      \item Every plot answers a question. You state this question and extract the answer
-            from the plot in its discussion.
-      \item Every plot should be referenced and discussed.
+      \item \textit{GNU-*} corresponds to \textit{GCC-*}.
+      \item \textit{GNU-OMP} corresponds to \textit{GCC-GNU}.
+      \item \textit{IntelLLVM-*} corresponds to \textit{ICC-*}.
+      \item \textit{NVHPC-*} corresponds to \textit{NVC-*}.
 \end{itemize}
+
+To maintain consistency, the structure and subsection titles align with those
+of the original work.
+
+\subsection{The Impact of Memory Allocation}
+
+The first experiment investigates the effect of the custom memory allocator
+used in pSTL-Bench on the performance of parallel STL algorithms. Whereas the
+original study employed a problem size of $2^{30}$, this setup uses a reduced
+size of $2^{29}$, as described in Section~\ref{sec:exp_details}.
+
+In the original paper, the custom allocator demonstrated significant
+performance improvements—particularly for the \textit{for\_each} and
+\textit{reduce} algorithms—achieving speedups of up to 1.5x over the default
+allocator.
+
+In this evaluation, no substantial performance difference was observed between
+the custom and default allocators. The measured results are presented in
+Figure~\ref{fig:speedup_customAllocator}.
+
+Despite the minimal performance impact in this setting, the custom allocator
+was retained to ensure consistency with the methodology of the original study.
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=\linewidth]{figures/speedup_customAllocator}
+      \caption{Speedup when using custom parallel allocator with 32 threads and a problem size of $2^{29}$. Higher is better.}\label{fig:speedup_customAllocator}
+      \Description{Speedup when using custom parallel allocator with 32 threads and a problem size of $2^{29}$. Higher is better.}
+\end{figure}
 
 \section{Conclusions}
 
