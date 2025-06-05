@@ -361,10 +361,10 @@ which is likely due to the hardware architecture—specifically, the presence of
 The \textit{find} algorithm performs a linear search over a range to locate a
 target value.
 
-Figure~\ref{fig:x::find} presents the execution time for the \textit{find}
-algorithm. The results are consistent with those reported in the original
-pSTL-Bench paper, where sequential execution significantly outperforms parallel
-implementations for small problem sizes.
+Figure~\ref{fig:x::find} presents the execution time and speedup for the
+\textit{find} algorithm. The results are consistent with those reported in the
+original pSTL-Bench paper, where sequential execution significantly outperforms
+parallel implementations for small problem sizes.
 
 As the problem size increases, parallel backends gradually begin to outperform
 the sequential version.
@@ -401,7 +401,7 @@ The GNU OpenMP implementation is omitted from the results, as it does not
 support this algorithm. Although the NVIDIA OpenMP backend also lacks native
 support, it falls back to a sequential implementation.
 
-Figure~\ref{fig:x::inclusive_scan} shows the execution time for the
+Figure~\ref{fig:x::inclusive_scan} shows the execution time and speedup for the
 \textit{inclusive\_scan} algorithm. The results are consistent with those in
 the original pSTL-Bench paper, where sequential execution significantly
 outperforms parallel implementations for small problem sizes.
@@ -438,9 +438,9 @@ lowest performance—even falling below that of the sequential baseline.
 The \textit{reduce} algorithm computes a single result by summing all elements
 in a given range.
 
-Figure~\ref{fig:x::reduce} presents the execution time for the \textit{reduce}
-algorithm. The results are consistent with those reported in the original
-pSTL-Bench paper and align with the behavior observed in the
+Figure~\ref{fig:x::reduce} presents the execution time and speedup for the
+\textit{reduce} algorithm. The results are consistent with those reported in
+the original pSTL-Bench paper and align with the behavior observed in the
 \textit{inclusive\_scan} experiment.
 
 Sequential execution significantly outperforms parallel implementations for
@@ -470,6 +470,39 @@ limitations of the underlying hardware architecture.
             \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
       \end{minipage}
       \caption{Results for X::reduce.}\label{fig:x::reduce}
+\end{figure}
+
+\subsection{X::sort}
+The \textit{sort} algorithm rearranges elements in ascending order.
+
+Figure~\ref{fig:x::sort} presents the execution time for the \textit{sort}
+algorithm.
+
+The results are consistent with those reported in the original pSTL-Bench
+paper. The NVIDIA OpenMP backend achieves the best performance for small
+problem sizes, while the GNU OpenMP backend performs best at larger scales.
+
+Among all backends, only GNU OpenMP achieves near-ideal speedup. In contrast,
+the others exhibit diminishing returns as the number of threads increases.
+
+The oneDPL backend on CPU ranks among the weakest in the problem size scaling
+experiment and performs the worst in the strong scaling scenario, falling
+significantly short of ideal speedup.
+
+\begin{figure}[H]
+      \centering
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/problemSize_time-sort.png}
+            \caption*{(a) Problem scaling. Lower is better.}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/speedup_threads-sort.png}
+            \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
+      \end{minipage}
+      \caption{Results for X::sort.}\label{fig:x::sort}
 \end{figure}
 
 \section{Conclusions}
