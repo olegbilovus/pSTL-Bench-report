@@ -434,6 +434,44 @@ lowest performance—even falling below that of the sequential baseline.
       \caption{Results for X::inclusive\_scan.}\label{fig:x::inclusive_scan}
 \end{figure}
 
+\subsection{X::reduce}
+The \textit{reduce} algorithm computes a single result by summing all elements
+in a given range.
+
+Figure~\ref{fig:x::reduce} presents the execution time for the \textit{reduce}
+algorithm. The results are consistent with those reported in the original
+pSTL-Bench paper and align with the behavior observed in the
+\textit{inclusive\_scan} experiment.
+
+Sequential execution significantly outperforms parallel implementations for
+small problem sizes. However, as the problem size increases, parallel backends
+begin to surpass the sequential version in performance.
+
+At a problem size of $2^{17}$ elements, most backends reach performance levels
+comparable to the sequential baseline, with the exception of the oneDPL backend
+on CPU, which achieves similar performance only at $2^{27}$ elements and
+beyond.
+
+The maximum observed speedup is typically reached at 8 threads for most
+backends. Beyond this point, performance begins to degrade, likely due to the
+limitations of the underlying hardware architecture.
+
+\begin{figure}[H]
+      \centering
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/problemSize_time-reduce.png}
+            \caption*{(a) Problem scaling. Lower is better.}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/speedup_threads-reduce.png}
+            \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
+      \end{minipage}
+      \caption{Results for X::reduce.}\label{fig:x::reduce}
+\end{figure}
+
 \section{Conclusions}
 
 Here you need to summarize what you did and why this is important. {\em Do not
