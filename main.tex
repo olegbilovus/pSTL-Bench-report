@@ -24,10 +24,9 @@
 \begin{document}
 
 \begin{abstract}
-      This paper reproduce and extends the pSTL-Bench benchmark suite to evaluate the
-      performance and scalability of parallel STL implementations using modern compilers and hardware.
-      The study covers multiple backends—GNU, HPX, TBB, and oneDPL—across recent
-      versions of GCC, Intel LLVM, and NVIDIA HPC, on both CPU and GPU platforms.
+      This work reproduce the experiments and extends the pSTL-Bench benchmark suite to evaluate the
+      performance and scalability of parallel STL implementations using modern versions of compilers and backends.
+      The study covers multiple backends and compilers on both CPU and GPU platforms.
 
       Results demonstrate that parallel STL algorithms generally outperform their
       sequential counterparts, however, scalability frequently remains limited by
@@ -102,8 +101,7 @@ computing resources.
       \item \textbf{sort} – Rearranges elements into ascending order, requiring synchronization and data movement.
 \end{itemize}
 
-\mypar{Backends} In this work, support for the \textit{oneAPI DPC++ Library (oneDPL)} is added, which is based on the SYCL
-programming model and enables parallel STL execution on both CPUs and GPUs.
+\mypar{Backends} In this work, support for the \textit{oneAPI DPC++ Library (oneDPL)} is added.
 
 The original pSTL-Bench suite includes the following backends:
 \begin{itemize}
@@ -123,7 +121,7 @@ based on GNU, Intel, and NVIDIA compilers.
             including installation of dependencies, configuration of the system, compilation of the benchmark suite, and execution of tests.
       \item \textbf{Semaphore UI} – A web-based interface for managing and monitoring the execution of ansible playbooks,
             providing a user-friendly way to trigger tests and view results.
-      \item \textbf{R Scripts} – Scripts for analyzing performance data, generating plots similar to those in the original paper.
+      \item \textbf{R Scripts} – Scripts for analyzing performance data, generating plots similar to those in the original paper
             and providing insights into the performance characteristics of different implementations.
 \end{itemize}
 
@@ -137,7 +135,7 @@ and the configuration of the parallel STL implementations.
 The benchmarks were executed on a \textit{DELL G16 7630} laptop connected to external power,
 with hardware specifications listed in Table~\ref{tab:hardware-config}.
 
-\begin{table}[h]
+\begin{table}[H]
       \centering
       \caption{Hardware configuration}\label{tab:hardware-config}
       \begin{tabular}{|l|l|}
@@ -169,7 +167,7 @@ the CPU frequency governor was set to \textit{performance} mode to ensure maximu
 \mypar{Compilers and Libraries}
 The compilers and libraries used in the experiments are listed in Table~\ref{tab:compilers} and Table~\ref{tab:libraries}, respectively.
 
-\begin{table}[h]
+\begin{table}[H]
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
@@ -209,7 +207,7 @@ $2^{30}$ to $2^{29}$. This adjustment was necessary due to runtime crashes
 encountered by the oneDPL backend when using the larger problem size.
 
 \mypar{Plots} All plots presented in this work were generated using the R scripts available
-in the forked repository. Figures were exported at a resolution of 300 DPI to
+in the forked repository~\cite{pSTL-Bench_fork:github}. Figures were exported at a resolution of 300 DPI to
 preserve detail and support zooming without quality loss.
 
 The speedup plots are presented using a log-linear scale, where the x-axis is
@@ -510,7 +508,7 @@ backends.
 \begin{table*}[t]
       \centering
       \centering
-      \caption{Speedup against GCC's sequential implementation with for 8 and 32 threads. Problem size is $2^{29}$. Higher is better.}\label{tab:summary_speedup}
+      \caption{Speedup against GNU-SEQ sequential implementation with for 8 and 32 threads. Problem size is $2^{29}$. Higher is better.}\label{tab:summary_speedup}
       \begin{tabular}{l c c c c c c}
             \hline
             \textbf{Backend}      & \textbf{find} & \makecell{\textbf{for\_each}                                                   \\$k_{it}=1$} & \makecell{\textbf{for\_each}\\$k_{it}=1000$} & \textbf{inclusive\_scan} & \textbf{reduce} & \textbf{sort} \\
@@ -560,10 +558,9 @@ backends.
 \subsection{Performance on GPU}
 
 This experiment focuses on the performance of parallel algorithms on GPU,
-evaluated using the NVIDIA HPC SDK and oneDPL with the CUDA compiler. All
-benchmarks are executed using \textit{float} precision instead of
-\textit{double}, as GPUs are traditionally more efficient with single-precision
-operations.
+evaluated using the NVIDIA HPC SDK and oneDPL. All benchmarks are executed
+using \textit{float} precision instead of \textit{double}, as GPUs are
+traditionally more efficient with single-precision operations.
 
 \mypar{for\_each}
 Figure~\ref{fig:gpu_problemSize_time-for_each} shows the performance of the
@@ -578,7 +575,7 @@ oneDPL-GPU backend performs slightly worse.
 
 When the arithmetic intensity is high ($k_{it} = 1000$), the results align more
 closely with the original study. Both GPU backends outperform the sequential
-version, with NVHPC-CUDA maintaining a clear advantage over oneDPL-GPU.
+version, with NVHPC-CUDA maintaining a clear advantage over oneDPL on GPU.
 
 \begin{figure}[H]
       \centering
@@ -593,8 +590,8 @@ version, with NVHPC-CUDA maintaining a clear advantage over oneDPL-GPU.
             \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1000.png}
             \caption*{(b) $k_{it} = 1000$.}
       \end{minipage}
-      \caption{Results for benchmark X::for\_each on GPU. Problem size scaling using
-            \textit{float}. Lower is better.}
+      \caption{Results for X::for\_each. Problem scaling using all cores except for GNU-SEQ implementation.
+            Data type: \textit{float}. Lower is better.}
       \label{fig:gpu_problemSize_time-for_each}
 \end{figure}
 
@@ -620,10 +617,10 @@ In contrast, the oneDPL-GPU backend exhibits minimal difference between
 \section{Conclusions}
 
 This work reproduced and extended the pSTL-Bench benchmark to evaluate the
-scalability of parallel STL implementations using modern compilers and
-hardware. The experiments were conducted across a range of algorithms and
-execution backends, including CPU and GPU platforms, with a particular focus on
-thread scaling, arithmetic intensity, and hardware efficiency.
+scalability of parallel STL implementations. The experiments were conducted
+across a range of algorithms and execution backends, including CPU and GPU
+platforms, with a particular focus on thread scaling, arithmetic intensity, and
+hardware efficiency.
 
 The results confirm that parallel STL implementations continue to outperform
 their sequential counterparts, especially for compute-intensive workloads.
@@ -636,18 +633,18 @@ The oneDPL backend on CPU consistently underperformed relative to other
 implementations, particularly in memory-bound algorithms like \textit{find} and
 \textit{inclusive\_scan}. On GPU, however, oneDPL delivered competitive results
 at higher arithmetic intensities, although the NVHPC backend generally provided
-better performance, particularly in \textit{for\_each}.
+better performance.
 
 Additional experiments showed that GPU performance was significantly better
 with \textit{float} precision compared to \textit{double}, especially for
 NVHPC. This highlights the importance of considering data type and backend
 capabilities when targeting heterogeneous platforms.
 
-In summary, while the parallel STL is a viable and portable abstraction for
-parallelism, its efficiency is highly dependent on compiler, backend, and
-hardware characteristics. Developers aiming for high performance should
-carefully evaluate these factors and selectively tune configurations based on
-target architecture and workload characteristics.
+While the parallel STL is a viable and portable abstraction for parallelism,
+its efficiency is highly dependent on compiler, backend, and hardware
+characteristics. Developers aiming for high performance should carefully
+evaluate these factors and selectively tune configurations based on target
+architecture and workload characteristics.
 
 \balance{}
 \bibliographystyle{ACM-Reference-Format}
@@ -684,6 +681,10 @@ target architecture and workload characteristics.
       \bibitem{google_benchmark:governor}
       Google Benchmark, ``Reducing Variance, Disabling CPU Frequency Scaling'' \textit{Google Benchmark Documentation},
       \url{https://google.github.io/benchmark/reducing_variance.html}
+
+      \bibitem{pSTL-Bench_fork:github}
+      ``Fork: pSTL-Bench: A Benchmark for Parallel STL Implementations'' \textit{GitHub Repository},
+      \url{https://github.com/olegbilovus/pSTL-Bench}
 
 \end{thebibliography}
 
