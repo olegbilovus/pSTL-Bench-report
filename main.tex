@@ -349,8 +349,41 @@ which is likely due to the hardware architecture—specifically, the presence of
             \caption*{(b) $k_{it} = 1000$.}
       \end{minipage}
       \caption{Results for benchmark X::for\_each. Strong scaling with $2^{29}$
-            elements. Higher is better.}
-      \label{fig:speedup_threads-for_each}
+            elements. Higher is better.}\label{fig:speedup_threads-for_each}
+\end{figure}
+
+\subsection{X::find}
+The \textit{find} algorithm performs a linear search over a range to locate a
+target value.
+
+Figure~\ref{fig:x::find} presents the execution time for the \textit{find}
+algorithm. The results are consistent with those reported in the original
+pSTL-Bench paper, where sequential execution significantly outperforms parallel
+implementations for small problem sizes.
+
+As the problem size increases, parallel backends gradually begin to outperform
+the sequential version.
+
+However, the maximum observed speedup remains relatively modest, with the best
+performance achieved by the NVIDIA OpenMP backend.
+
+Across all problem sizes, the oneDPL backend on CPU consistently delivered the
+lowest performance—even falling below that of the sequential implementation.
+
+\begin{figure}[H]
+      \centering
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/problemSize_time-find.png}
+            \caption*{(a) Problem scaling. Lower is better.}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/speedup_threads-find.png}
+            \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
+      \end{minipage}
+      \caption{Results for X::find.}\label{fig:x::find}
 \end{figure}
 
 \section{Conclusions}
