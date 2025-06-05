@@ -42,10 +42,15 @@
 \begin{document}
 
 \begin{abstract}
-      Describe in concise words what you do, why you do it (not necessarily
-      in this order), and the main result.  The abstract has to be
-      self-contained and readable for a person in the general area. You
-      should write the abstract last.
+      This work revisits and extends the pSTL-Bench benchmark to evaluate the
+      scalability of parallel STL implementations using modern compilers and hardware.
+      The study covers multiple backends—GNU, HPX, TBB, and oneDPL—across recent
+      versions of GCC, Intel LLVM, and NVIDIA HPC, on both CPU and GPU platforms.
+
+      Results show that parallel STL algorithms generally outperform their sequential
+      counterparts, though scalability is often limited by hardware characteristics.
+      GPU performance depends heavily on arithmetic intensity and data precision,
+      with single-precision operations delivering better results.
 \end{abstract}
 
 \maketitle
