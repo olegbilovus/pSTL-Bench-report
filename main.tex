@@ -1,29 +1,11 @@
 \documentclass[sigconf]{acmart}
 \usepackage{balance}
-
-\usepackage{listings}
-\usepackage{xcolor}
 \usepackage{makecell}
 \usepackage{float}
 
 \settopmatter{printacmref=false}
 \renewcommand\footnotetextcopyrightpermission[1]{}
 \acmConference[HPC UniSa course]{High Performace Computing course}{2025}{Fisciano, Italy}
-
-
-\lstdefinelanguage{cudaerror}{
-  morekeywords={UR, CUDA, ERROR},
-  sensitive=false,
-}
-
-\lstdefinestyle{errorlog}{
-  basicstyle=\ttfamily\footnotesize,
-  backgroundcolor=\color{gray!10},
-  frame=single,
-  breaklines=true,
-  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
-  keywordstyle=\color{red!70!black}\bfseries,
-}
 
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
@@ -224,29 +206,7 @@ The compilers and libraries used in the experiments are listed in Table~\ref{tab
 All aspects of the original pSTL-Bench experiments are replicated in this work,
 with one exception: the problem size in certain experiments is reduced from
 $2^{30}$ to $2^{29}$. This adjustment was necessary due to runtime crashes
-encountered by the oneDPL backend when using the larger problem size. The
-corresponding error message is shown in Listing~\ref{lst:onedpl-error}.
-
-\begin{lstlisting}[style=errorlog, caption={oneDPL GPU runtime error output}, label={lst:onedpl-error}]
-<CUDA>[ERROR]: 
-UR CUDA ERROR:
-  Value:           2
-  Name:            CUDA_ERROR_OUT_OF_MEMORY
-  Description:     out of memory
-  Function:        allocateMemObjOnDeviceIfNeeded
-  Source Location: /builds/oneapi-core/oneapi-release-package/intel-llvm-mirror/build/_deps/unified-runtime-src/source/adapters/cuda/memory.cpp:442
-
-<CUDA>[ERROR]: 
-UR CUDA ERROR:
-  Value:           2
-  Name:            CUDA_ERROR_OUT_OF_MEMORY
-  Description:     out of memory
-  Function:        allocateMemObjOnDeviceIfNeeded
-  Source Location: /builds/oneapi-core/oneapi-release-package/intel-llvm-mirror/build/_deps/unified-runtime-src/source/adapters/cuda/memory.cpp:442
-
-terminate called after throwing an instance of 'sycl::_V1::exception'
-  what():  Native API failed. Native API returns: 38 (UR_RESULT_ERROR_OUT_OF_HOST_MEMORY)
-\end{lstlisting}
+encountered by the oneDPL backend when using the larger problem size.
 
 \mypar{Plots} All plots presented in this work were generated using the R scripts available
 in the forked repository. Figures were exported at a resolution of 300 DPI to
