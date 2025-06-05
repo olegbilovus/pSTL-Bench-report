@@ -5,7 +5,7 @@
 
 \settopmatter{printacmref=false}
 \renewcommand\footnotetextcopyrightpermission[1]{}
-\acmConference[HPC UniSa course]{High Performace Computing course}{2025}{Fisciano, Italy}
+\acmConference[HPC UniSa course]{High Performance Computing course}{2025}{Fisciano, Italy}
 
 % bold paragraph titles
 \newcommand{\mypar}[1]{{\bf #1.}}
@@ -24,23 +24,23 @@
 \begin{document}
 
 \begin{abstract}
-      This work revisits and extends the pSTL-Bench benchmark to evaluate the
-      scalability of parallel STL implementations using modern compilers and hardware.
+      This paper reproduce and extends the pSTL-Bench benchmark suite to evaluate the
+      performance and scalability of parallel STL implementations using modern compilers and hardware.
       The study covers multiple backends—GNU, HPX, TBB, and oneDPL—across recent
       versions of GCC, Intel LLVM, and NVIDIA HPC, on both CPU and GPU platforms.
 
-      Results show that parallel STL algorithms generally outperform their sequential
-      counterparts, though scalability is often limited by hardware characteristics.
-      GPU performance depends heavily on arithmetic intensity and data precision,
-      with single-precision operations delivering better results.
+      Results demonstrate that parallel STL algorithms generally outperform their
+      sequential counterparts, however, scalability frequently remains limited by
+      hardware constraints. GPU performance depends heavily on arithmetic intensity
+      and data precision, with single-precision operations delivering better results.
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}\label{sec:intro}
-Writing performance-portable and efficient parallel applications remains a
-significant challenge due to the diversity of modern hardware architectures.
-The emergence of parallel programming frameworks and, more recently, the
+Developing performance-portable and efficient parallel applications remains
+challenging due to the diversity of modern hardware architectures. The
+emergence of parallel programming frameworks and, more recently, the
 introduction of parallel algorithms in the \textit{C++17 Standard Template
       Library (STL)} aim to address this challenge by enabling developers to write
 code that runs efficiently across CPUs and GPUs using a standardized interface.
@@ -54,7 +54,7 @@ and highlights the relative performance characteristics of different STL
 implementations.
 
 \mypar{This Work} In this work, the main results and experiments from the original pSTL-Bench
-paper are reproduced. Beyond reproduction, the project is then extended by
+paper are reproduced. In addition to reproduction, this work extends the project by
 incorporating support for the \textit{oneAPI DPC++ Library (oneDPL)} backend,
 enabling the evaluation of Intel’s parallel STL implementation based on the
 \textit{SYCL programming model} on both CPU and GPU platforms
@@ -65,7 +65,7 @@ setup and benchmark execution, R scripts for performance analysis, and expanded
 documentation for ease of deployment and adding new backends.
 
 \mypar{Related Work} This work builds directly on pSTL-Bench.
-While performance portability and parallelism have been widely studied in
+While performance portability and parallel execution have been widely studied in
 the context of full applications~\cite{app} and frameworks such as Kokkos~\cite{Kokkos}
 and RAJA~\cite{RAJA}, no prior work has reproduced or extended pSTL-Bench,
 nor added support for the oneDPL backend or focused on improving its reproducibility.
@@ -135,7 +135,7 @@ and the configuration of the parallel STL implementations.
 
 \mypar{Hardware Platform}
 The benchmarks were executed on a \textit{DELL G16 7630} laptop connected to external power,
-with the hardware specifications shown in Table~\ref{tab:hardware-config}.
+with hardware specifications listed in Table~\ref{tab:hardware-config}.
 
 \begin{table}[h]
       \centering
