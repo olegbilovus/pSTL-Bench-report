@@ -386,6 +386,49 @@ lowest performance—even falling below that of the sequential implementation.
       \caption{Results for X::find.}\label{fig:x::find}
 \end{figure}
 
+\subsection{X::inclusive\_scan}
+
+The \textit{inclusive\_scan} algorithm computes a prefix sum, where each
+element in the output is the sum of all preceding elements plus the current
+element.
+
+The GNU OpenMP implementation is omitted from the results, as it does not
+support this algorithm. Although the NVIDIA OpenMP backend also lacks native
+support, it falls back to a sequential implementation.
+
+Figure~\ref{fig:x::inclusive_scan} shows the execution time for the
+\textit{inclusive\_scan} algorithm. The results are consistent with those in
+the original pSTL-Bench paper, where sequential execution significantly
+outperforms parallel implementations for small problem sizes.
+
+As the problem size increases, the performance of the parallel backends begins
+to approach that of the sequential version, with the TBB implementations
+achieving the best results overall.
+
+Observed speedups remain modest and tend to degrade when using more than 8
+threads. This decline is likely due to the underlying hardware architecture,
+which consists of 8 performance cores (P-cores) and 16 efficiency cores
+(E-cores).
+
+Across all problem sizes, the oneDPL backend on CPU consistently exhibited the
+lowest performance—even falling below that of the sequential baseline.
+
+\begin{figure}[H]
+      \centering
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/problemSize_time-inclusive_scan.png}
+            \caption*{(a) Problem scaling. Lower is better.}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/speedup_threads-inclusive_scan.png}
+            \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
+      \end{minipage}
+      \caption{Results for X::inclusive\_scan.}\label{fig:x::inclusive_scan}
+\end{figure}
+
 \section{Conclusions}
 
 Here you need to summarize what you did and why this is important. {\em Do not
