@@ -592,7 +592,65 @@ backends.
       \end{tabular}
 \end{table*}
 
-\subsection{Performace on GPU}
+\subsection{Performance on GPU}
+
+This experiment focuses on the performance of parallel algorithms on GPU,
+evaluated using the NVIDIA HPC SDK and oneDPL with the CUDA compiler. All
+benchmarks are executed using \textit{float} precision instead of
+\textit{double}, as GPUs are traditionally more efficient with single-precision
+operations.
+
+\mypar{for\_each}
+Figure~\ref{fig:gpu_problemSize_time-for_each} shows the performance of the
+\textit{for\_each} algorithm on GPU for two levels of arithmetic intensity:
+$k_{it} = 1$ and $k_{it} = 1000$.
+
+The results differ from those in the original pSTL-Bench paper. When the
+arithmetic intensity is low ($k_{it} = 1$), GPU implementations previously
+performed significantly worse than CPU implementations. In this evaluation,
+however, the NVHPC-CUDA backend outperforms the sequential baseline, while the
+oneDPL-GPU backend performs slightly worse.
+
+When the arithmetic intensity is high ($k_{it} = 1000$), the results align more
+closely with the original study. Both GPU backends outperform the sequential
+version, with NVHPC-CUDA maintaining a clear advantage over oneDPL-GPU.
+
+\begin{figure}[H]
+      \centering
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1.png}
+            \caption*{(a) $k_{it} = 1$.}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1000.png}
+            \caption*{(b) $k_{it} = 1000$.}
+      \end{minipage}
+      \caption{Results for benchmark X::for\_each on GPU. Problem size scaling using
+            \textit{float}. Lower is better.}
+      \label{fig:gpu_problemSize_time-for_each}
+\end{figure}
+
+\mypar{Float vs Double}
+To evaluate the impact of data type on GPU performance, the \textit{for\_each}
+benchmark with $k_{it} = 1000$ was executed using both \textit{float} and
+\textit{double} types. The results are shown in
+Figure~\ref{fig:gpu_float_vs_double}.
+
+The NVHPC-CUDA backend shows a substantial performance gain when using
+\textit{float}, highlighting the typical advantage of single-precision on GPUs.
+In contrast, the oneDPL-GPU backend exhibits minimal difference between
+\textit{float} and \textit{double}, indicating less sensitivity to data type.
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=\linewidth]{figures/gpu-floatVSDouble-problemSize_time-for_each-k1000.png}
+      \caption{Performance comparison of \textit{for\_each} with $k_{it} = 1000$
+            using \textit{float} and \textit{double}. Lower is better.}
+      \label{fig:gpu_float_vs_double}
+\end{figure}
 
 \section{Conclusions}
 
