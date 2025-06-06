@@ -32,6 +32,10 @@
       sequential counterparts, however, scalability frequently remains limited by
       hardware constraints. GPU performance depends heavily on arithmetic intensity
       and data precision, with single-precision operations delivering better results.
+
+      This work and the data used for the experiments are available respectively at
+      forked repository~\cite{pSTL-Bench_fork:github} and at report
+      repository~\cite{pSTL-Bench-report:github}.
 \end{abstract}
 
 \maketitle
@@ -649,6 +653,14 @@ architecture and workload characteristics.
 \balance{}
 \bibliographystyle{ACM-Reference-Format}
 \begin{thebibliography}{1}
+      
+      \bibitem{pSTL-Bench_fork:github}
+      ``Fork: pSTL-Bench: A Benchmark for Parallel STL Implementations'' \textit{GitHub Repository},
+      \url{https://github.com/olegbilovus/pSTL-Bench}
+
+      \bibitem{pSTL-Bench-report:github}
+      ``Extending and Reproducing pSTL-Bench: oneDPL Backend Integration and Enhanced Reproducibility'' \textit{GitHub Repository},
+      \url{https://github.com/olegbilovus/pSTL-Bench-report}
 
       \bibitem{pSTL-Bench}
       R. Laso, D. Krupitza, and S. Hunold, ``Exploring Scalability in C++ Parallel STL Implementations'' in \textit{Proceedings of the 53rd International Conference on Parallel Processing (ICPP '24)},
@@ -681,10 +693,6 @@ architecture and workload characteristics.
       \bibitem{google_benchmark:governor}
       Google Benchmark, ``Reducing Variance, Disabling CPU Frequency Scaling'' \textit{Google Benchmark Documentation},
       \url{https://google.github.io/benchmark/reducing_variance.html}
-
-      \bibitem{pSTL-Bench_fork:github}
-      ``Fork: pSTL-Bench: A Benchmark for Parallel STL Implementations'' \textit{GitHub Repository},
-      \url{https://github.com/olegbilovus/pSTL-Bench}
 
 \end{thebibliography}
 

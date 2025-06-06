@@ -1,0 +1,57 @@
+{
+  "context": {
+    "date": "2025-05-22T02:26:12+02:00",
+    "host_name": "ubuntudell",
+    "executable": "/home/ubuntu/pSTL-Bench/builds/onedplcpu-k1-da-double/pSTL-Bench",
+    "num_cpus": 32,
+    "mhz_per_cpu": 1131,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 49152,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 2097152,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 37748736,
+        "num_sharing": 32
+      }
+    ],
+    "load_avg": [3.81934,3.4751,2.54004],
+    "library_build_type": "release",
+    "tbb #threads": "16"
+  },
+  "benchmarks": [
+    {
+      "name": "IntelLLVM-ONEDPL_CPU/onedpl::reduce/double/536870912/manual_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "IntelLLVM-ONEDPL_CPU/onedpl::reduce/double/536870912/manual_time",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 105,
+      "real_time": 6.6621852857142858e+07,
+      "cpu_time": 6.6440695171428591e+07,
+      "time_unit": "ns",
+      "bytes_per_second": 1.9340353591829813e+11,
+      "used_threads": 1.6000000000000000e+01
+    }
+  ]
+}

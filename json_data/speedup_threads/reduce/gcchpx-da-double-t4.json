@@ -1,0 +1,57 @@
+{
+  "context": {
+    "date": "2025-05-22T01:47:26+02:00",
+    "host_name": "ubuntudell",
+    "executable": "/home/ubuntu/pSTL-Bench/builds/gcchpx-k1-da-double/pSTL-Bench",
+    "num_cpus": 32,
+    "mhz_per_cpu": 4287,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 49152,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 2097152,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 37748736,
+        "num_sharing": 32
+      }
+    ],
+    "load_avg": [1.18555,0.850586,1.16016],
+    "library_build_type": "release",
+    "hpx #threads": "4"
+  },
+  "benchmarks": [
+    {
+      "name": "GNU-HPX/hpx::reduce/double/536870912/manual_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "GNU-HPX/hpx::reduce/double/536870912/manual_time",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 92,
+      "real_time": 7.4700191326086938e+07,
+      "cpu_time": 7.4662044119565219e+07,
+      "time_unit": "ns",
+      "bytes_per_second": 1.7248820495992908e+11,
+      "used_threads": 4.0000000000000000e+00
+    }
+  ]
+}

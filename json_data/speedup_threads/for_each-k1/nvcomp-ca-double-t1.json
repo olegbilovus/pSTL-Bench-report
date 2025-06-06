@@ -1,0 +1,58 @@
+{
+  "context": {
+    "date": "2025-05-22T01:13:23+02:00",
+    "host_name": "ubuntudell",
+    "executable": "/home/ubuntu/pSTL-Bench/builds/nvcomp-k1-ca-double/pSTL-Bench",
+    "num_cpus": 32,
+    "mhz_per_cpu": 600,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 49152,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 2097152,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 37748736,
+        "num_sharing": 32
+      }
+    ],
+    "load_avg": [0.724121,0.968262,4.4082],
+    "library_build_type": "release",
+    "omp #threads": "1"
+  },
+  "benchmarks": [
+    {
+      "name": "NVHPC-OMP/std::for_each/double/536870912/manual_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "NVHPC-OMP/std::for_each/double/536870912/manual_time",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 19,
+      "real_time": 3.7616805947368419e+08,
+      "cpu_time": 3.7613701584210521e+08,
+      "time_unit": "ns",
+      "bytes_per_second": 4.5670728237897781e+10,
+      "kernel_its": 1.0000000000000000e+00,
+      "used_threads": 1.0000000000000000e+00
+    }
+  ]
+}
