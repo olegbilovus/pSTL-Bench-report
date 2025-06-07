@@ -32,10 +32,6 @@
       sequential counterparts, however, scalability frequently remains limited by
       hardware constraints. GPU performance depends heavily on arithmetic intensity
       and data precision, with single-precision operations delivering better results.
-
-      This work and the data used for the experiments are available respectively at
-      forked repository~\cite{pSTL-Bench_fork:github} and at report
-      repository~\cite{pSTL-Bench-report:github}.
 \end{abstract}
 
 \maketitle
@@ -211,8 +207,7 @@ $2^{30}$ to $2^{29}$. This adjustment was necessary due to runtime crashes
 encountered by the oneDPL backend when using the larger problem size.
 
 \mypar{Plots} All plots presented in this work were generated using the R scripts available
-in the forked repository~\cite{pSTL-Bench_fork:github}. Figures were exported at a resolution of 300 DPI to
-preserve detail and support zooming without quality loss.
+in the forked repository~\cite{pSTL-Bench_fork:github}.
 
 The speedup plots are presented using a log-linear scale, where the x-axis is
 logarithmic, representing the number of threads, and the y-axis is linear,
@@ -236,9 +231,7 @@ of the original work.
 
 This section presents the results of experiments designed to evaluate the
 performance of parallel STL algorithms across various compiler-backend
-combinations. While each experiment references the original results from the
-pSTL-Bench paper, those plots are not reproduced here. Readers are encouraged
-to consult the original publication for direct visual comparisons.
+combinations.
 
 \subsection{The Impact of Memory Allocation}
 
@@ -268,14 +261,20 @@ was retained to ensure consistency with the methodology of the original study.
 \subsection{X::for\_each}
 
 This experiment evaluates the performance of the \textit{for\_each} algorithm.
-The parameter $k_{it}$ represents the arithmetic intensity of the workload. For
-higher values of $k_{it}$, performance is expected to approach ideal speedup.
+The parameter \( k_{it} \) represents the arithmetic intensity of the workload,
+specifically indicating how many times a computational operation is repeated
+for each element of the input data. Thus, a higher \( k_{it} \) corresponds to
+a more compute-intensive workload, and performance in this scenario is expected
+to approach ideal speedup due to reduced relative overhead from
+parallelization.
 
-Figure~\ref{fig:problemSize_time-for_each} presents the execution time for
-\textit{for\_each} with minimal and maximal $k_{it}$ values. The results
-closely resemble those reported in the original pSTL-Bench paper. For $k_{it} =
-      1$, the NVIDIA OpenMP backend achieves the best performance. In contrast, for
-$k_{it} = 1000$, all backends exhibit comparable execution times.
+Figure~\ref{fig:problemSize_time-for_each} presents the execution times for
+\textit{for\_each} using minimal and maximal arithmetic intensities,
+represented by \( k_{it} \). The results closely resemble those reported in the
+original pSTL-Bench paper. For the low-intensity case (\( k_{it} = 1 \)), the
+NVIDIA OpenMP backend achieves the best performance. In contrast, for the
+high-intensity scenario (\( k_{it} = 1000 \)), all backends exhibit similar
+execution times.
 
 The oneDPL backend on CPU consistently performed worse than the other backends
 across both configurations.
@@ -342,7 +341,7 @@ However, the maximum observed speedup remains relatively modest, with the best
 performance achieved by the NVIDIA OpenMP backend.
 
 Across all problem sizes, the oneDPL backend on CPU consistently delivered the
-lowest performance—even falling below that of the sequential implementation.
+worst performance.
 
 \begin{figure}[H]
       \centering
@@ -408,9 +407,7 @@ The \textit{reduce} algorithm computes a single result by summing all elements
 in a given range.
 
 Figure~\ref{fig:x::reduce} presents the execution time and speedup for the
-\textit{reduce} algorithm. The results are consistent with those reported in
-the original pSTL-Bench paper and align with the behavior observed in the
-\textit{inclusive\_scan} experiment.
+\textit{reduce} algorithm.
 
 Sequential execution significantly outperforms parallel implementations for
 small problem sizes. However, as the problem size increases, parallel backends
@@ -653,7 +650,7 @@ architecture and workload characteristics.
 \balance{}
 \bibliographystyle{ACM-Reference-Format}
 \begin{thebibliography}{1}
-      
+
       \bibitem{pSTL-Bench_fork:github}
       ``Fork: pSTL-Bench: A Benchmark for Parallel STL Implementations'' \textit{GitHub Repository},
       \url{https://github.com/olegbilovus/pSTL-Bench}
