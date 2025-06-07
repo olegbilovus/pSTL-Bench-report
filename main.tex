@@ -82,12 +82,9 @@ familiar interfaces. Compiler support varies, relying on different
 runtimes and libraries to target platforms such as multi-core CPUs
 and GPUs, with differences in scheduling, memory use, and synchronization.
 
-\mypar{Problem Definition} The primary objective is to analyze how different implementations
-of parallel STL algorithms scale with increasing problem sizes and hardware resources.
-This includes identifying the computational overheads and the performance gains achieved
-through parallel execution. A detailed performance comparison is necessary to understand
-which combinations of compilers and backends provide the most efficient use of available
-computing resources.
+\mypar{Problem Definition} The primary objective is to analyze the scalability of parallel STL
+implementations with varying problem sizes and hardware resources, identifying computational overheads
+and performance gains. It compares compilers and backends to determine the most efficient combinations.
 
 \mypar{Algorithms} The study focuses on five representative algorithms that embody diverse computational patterns:
 \begin{itemize}
@@ -283,13 +280,13 @@ across both configurations.
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/problemSize_time-for_each-k1.png}
+            \includegraphics[width=\linewidth]{figures/problemSize_time-for_each-k1}
             \caption*{(a) $k_{it} = 1$.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/problemSize_time-for_each-k1000.png}
+            \includegraphics[width=\linewidth]{figures/problemSize_time-for_each-k1000}
             \caption*{(b) $k_{it} = 1000$.}
       \end{minipage}
       \caption{Results for benchmark X::for\_each. Problem size scaling using all
@@ -312,13 +309,13 @@ which is likely due to the hardware architecture—specifically, the presence of
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/speedup_threads-for_each-k1.png}
+            \includegraphics[width=\linewidth]{figures/speedup_threads-for_each-k1}
             \caption*{(a) $k_{it} = 1$.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/speedup_threads-for_each-k1000.png}
+            \includegraphics[width=\linewidth]{figures/speedup_threads-for_each-k1000}
             \caption*{(b) $k_{it} = 1000$.}
       \end{minipage}
       \caption{Results for benchmark X::for\_each. Strong scaling with $2^{29}$
@@ -347,13 +344,13 @@ worst performance.
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/problemSize_time-find.png}
+            \includegraphics[width=\linewidth]{figures/problemSize_time-find}
             \caption*{(a) Problem scaling. Lower is better.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/speedup_threads-find.png}
+            \includegraphics[width=\linewidth]{figures/speedup_threads-find}
             \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
       \end{minipage}
       \caption{Results for X::find.}\label{fig:x::find}
@@ -366,37 +363,34 @@ element in the output is the sum of all preceding elements plus the current
 element.
 
 The GNU OpenMP implementation is omitted from the results, as it does not
-support this algorithm. Although the NVIDIA OpenMP backend also lacks native
-support, it falls back to a sequential implementation.
+support this algorithm. The NVIDIA OpenMP backend also lacks native support but
+defaults to a sequential implementation.
 
 Figure~\ref{fig:x::inclusive_scan} shows the execution time and speedup for the
-\textit{inclusive\_scan} algorithm. The results are consistent with those in
-the original pSTL-Bench paper, where sequential execution significantly
-outperforms parallel implementations for small problem sizes.
+\textit{inclusive\_scan} algorithm. The results align with those in the
+original pSTL-Bench paper, where sequential execution significantly outperforms
+parallel implementations for small problem sizes.
 
-As the problem size increases, the performance of the parallel backends begins
-to approach that of the sequential version, with the TBB implementations
-achieving the best results overall.
+As the problem size increases, parallel backends approach sequential
+performance, with the TBB implementations achieving the best overall results.
+However, observed speedups remain modest and degrade beyond 8 threads, likely
+due to hardware constraints—specifically, the processor's 8 performance cores
+(P-cores) and 16 efficiency cores (E-cores).
 
-Observed speedups remain modest and tend to degrade when using more than 8
-threads. This decline is likely due to the underlying hardware architecture,
-which consists of 8 performance cores (P-cores) and 16 efficiency cores
-(E-cores).
-
-Across all problem sizes, the oneDPL backend on CPU consistently exhibited the
-lowest performance—even falling below that of the sequential baseline.
+Across all problem sizes, the oneDPL backend on CPU consistently exhibits the
+lowest performance, even falling below the sequential baseline.
 
 \begin{figure}[H]
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/problemSize_time-inclusive_scan.png}
+            \includegraphics[width=\linewidth]{figures/problemSize_time-inclusive_scan}
             \caption*{(a) Problem scaling. Lower is better.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/speedup_threads-inclusive_scan.png}
+            \includegraphics[width=\linewidth]{figures/speedup_threads-inclusive_scan}
             \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
       \end{minipage}
       \caption{Results for X::inclusive\_scan.}\label{fig:x::inclusive_scan}
@@ -426,13 +420,13 @@ limitations of the underlying hardware architecture.
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/problemSize_time-reduce.png}
+            \includegraphics[width=\linewidth]{figures/problemSize_time-reduce}
             \caption*{(a) Problem scaling. Lower is better.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/speedup_threads-reduce.png}
+            \includegraphics[width=\linewidth]{figures/speedup_threads-reduce}
             \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
       \end{minipage}
       \caption{Results for X::reduce.}\label{fig:x::reduce}
@@ -459,13 +453,13 @@ significantly short of ideal speedup.
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/problemSize_time-sort.png}
+            \includegraphics[width=\linewidth]{figures/problemSize_time-sort}
             \caption*{(a) Problem scaling. Lower is better.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/speedup_threads-sort.png}
+            \includegraphics[width=\linewidth]{figures/speedup_threads-sort}
             \caption*{(b) Strong scaling with $2^{29}$ elements. Higher is better.}
       \end{minipage}
       \caption{Results for X::sort.}\label{fig:x::sort}
@@ -473,19 +467,16 @@ significantly short of ideal speedup.
 \subsection{Summary of Results}
 
 \mypar{Speedup}
-Table~\ref{tab:summary_speedup} summarizes the experimental results, reporting
-the maximum speedup achieved by each backend across the five parallel STL
-algorithms. Speedup is shown for 8 and 32 threads to reflect the underlying
-hardware architecture, which includes 8 performance cores (P-cores),
-16 efficiency cores (E-cores), and 8 hyperthreads.
+Table~\ref{tab:summary_speedup} summarizes the maximum speedup achieved by each backend
+for five parallel STL algorithms, evaluated using 8 and 32 threads.
+Speedup is shown for 8 and 32 threads to reflect the underlying hardware
+architecture which includes 8 P-cores, 16 E-cores, and 8 hyperthreads.
 
-As observed in the original pSTL-Bench paper, all parallel implementations
-outperform the sequential version across all algorithms. The average speedup
-across all backends is approximately 3x.
+All parallel implementations outperform the sequential baseline, achieving an
+average speedup of approximately 3x.
 
-Among the backends, oneDPL consistently achieved the lowest speedup but still
-outperformed the sequential baseline in all algorithms except \textit{find} and
-\textit{inclusive\_scan}.
+OneDPL shows the lowest speedup overall, performing worse than sequential in
+\textit{find} and \textit{inclusive\_scan}.
 
 \mypar{Efficiency}
 Table~\ref{tab:summary_maxspeedup} reports the maximum number of threads for
@@ -497,14 +488,12 @@ The results indicate that most backends maintain high efficiency up to 8
 threads, which aligns with the processor's architecture, specifically the
 presence of 8 performance cores.
 
-\mypar{Binary Size}
+\mypar{Binary size}
 Table~\ref{tab:summary_binary} presents the binary sizes generated by the
-different compiler-backend combinations.
-
-The results show considerable variation in binary size, with the oneDPL backend
-on CPU producing the largest binaries. This is consistent with the complexity
-of its implementation, which is generally more elaborate compared to the other
-backends.
+different compiler-backend combinations. The results show considerable variation
+in binary size, with the oneDPL backend on CPU producing the largest binaries.
+This is consistent with the complexity of its implementation, which is generally
+more elaborate compared to the other backends.
 
 \begin{table*}[t]
       \centering
@@ -582,13 +571,13 @@ version, with NVHPC-CUDA maintaining a clear advantage over oneDPL on GPU.
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1.png}
+            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1}
             \caption*{(a) $k_{it} = 1$.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1000.png}
+            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1000}
             \caption*{(b) $k_{it} = 1000$.}
       \end{minipage}
       \caption{Results for X::for\_each. Problem scaling using all cores except for GNU-SEQ implementation.
@@ -609,7 +598,7 @@ In contrast, the oneDPL-GPU backend exhibits minimal difference between
 
 \begin{figure}[H]
       \centering
-      \includegraphics[width=\linewidth]{figures/gpu-floatVSDouble-problemSize_time-for_each-k1000.png}
+      \includegraphics[width=\linewidth]{figures/gpu-floatVSDouble-problemSize_time-for_each-k1000}
       \caption{Performance comparison of \textit{for\_each} with $k_{it} = 1000$
             using \textit{float} and \textit{double}. Lower is better.}
       \label{fig:gpu_float_vs_double}
@@ -647,17 +636,12 @@ characteristics. Developers aiming for high performance should carefully
 evaluate these factors and selectively tune configurations based on target
 architecture and workload characteristics.
 
+The data used for the experiments and this report are publicly available in the
+GitHub repository~\cite{pSTL-Bench-report:github}.
+
 \balance{}
 \bibliographystyle{ACM-Reference-Format}
 \begin{thebibliography}{1}
-
-      \bibitem{pSTL-Bench_fork:github}
-      ``Fork: pSTL-Bench: A Benchmark for Parallel STL Implementations'' \textit{GitHub Repository},
-      \url{https://github.com/olegbilovus/pSTL-Bench}
-
-      \bibitem{pSTL-Bench-report:github}
-      ``Extending and Reproducing pSTL-Bench: oneDPL Backend Integration and Enhanced Reproducibility'' \textit{GitHub Repository},
-      \url{https://github.com/olegbilovus/pSTL-Bench-report}
 
       \bibitem{pSTL-Bench}
       R. Laso, D. Krupitza, and S. Hunold, ``Exploring Scalability in C++ Parallel STL Implementations'' in \textit{Proceedings of the 53rd International Conference on Parallel Processing (ICPP '24)},
@@ -687,9 +671,17 @@ architecture and workload characteristics.
       NVIDIA, ``GeForce RTX 4070 Laptop GPU'' \textit{GeForce RTX 40 Series Laptops},
       \url{https://www.nvidia.com/en-us/geforce/laptops/40-series/}
 
+      \bibitem{pSTL-Bench_fork:github}
+      ``Fork: pSTL-Bench: A Benchmark for Parallel STL Implementations'' \textit{GitHub Repository},
+      \url{https://github.com/olegbilovus/pSTL-Bench}
+
       \bibitem{google_benchmark:governor}
       Google Benchmark, ``Reducing Variance, Disabling CPU Frequency Scaling'' \textit{Google Benchmark Documentation},
       \url{https://google.github.io/benchmark/reducing_variance.html}
+
+      \bibitem{pSTL-Bench-report:github}
+      ``Extending and Reproducing pSTL-Bench: oneDPL Backend Integration and Enhanced Reproducibility'' \textit{GitHub Repository},
+      \url{https://github.com/olegbilovus/pSTL-Bench-report}
 
 \end{thebibliography}
 
