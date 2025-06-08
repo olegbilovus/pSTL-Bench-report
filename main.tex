@@ -570,13 +570,13 @@ version, with NVHPC-CUDA maintaining a clear advantage over oneDPL on GPU.
       \centering
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1}
+            \includegraphics[width=\linewidth]{figures/problemSize_time_gpu-for_each-k1}
             \caption*{(a) $k_{it} = 1$.}
       \end{minipage}
       \hfill
       \begin{minipage}[t]{0.48\linewidth}
             \centering
-            \includegraphics[width=\linewidth]{figures/gpu_problemSize_time-for_each-k1000}
+            \includegraphics[width=\linewidth]{figures/problemSize_time_gpu-for_each-k1000}
             \caption*{(b) $k_{it} = 1000$.}
       \end{minipage}
       \caption{Results for X::for\_each. Problem scaling using all cores except for GNU-SEQ implementation.
@@ -597,7 +597,7 @@ In contrast, the oneDPL-GPU backend exhibits minimal difference between
 
 \begin{figure}[H]
       \centering
-      \includegraphics[width=\linewidth]{figures/gpu-floatVSDouble-problemSize_time-for_each-k1000}
+      \includegraphics[width=\linewidth]{figures/problemSize_time_gpu-FvsD-for_each-k1000}
       \caption{Performance comparison of \texttt{for\_each} with $k_{it} = 1000$
             using \texttt{float} and \texttt{double}. Lower is better.}
       \label{fig:gpu_float_vs_double}
