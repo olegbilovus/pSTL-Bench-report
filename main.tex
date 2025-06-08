@@ -618,12 +618,24 @@ There are 4 JIT compilation modes available:
 The \texttt{auto} mode is the default and is the one used in all the
 experiments.
 
-The other modes were tested on CPU, but they did not yield any performance
-improvements as shown in Figure~\ref{fig:oneDPL_jit_modes}.
+The other modes were tested on CPU and GPU using the \texttt{for\_each}
+algorithm with $k_{it} = 1000$ and a problem size of $2^{29}$ elements. The
+results are shown in Figure~\ref{fig:oneDPL_jit_modes} and indicate that on
+this type of benchmarks, they did yield any performance improvements.
 
 \begin{figure}[H]
       \centering
-      \includegraphics[width=\linewidth]{figures/problemSize_time_onedpl-cpu_jit-for_each-k1000}
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/problemSize_time_onedpl-cpu_jit-for_each-k1000}
+            \caption*{(a) CPU. Data type: \texttt{double}.}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/problemSize_time_onedpl-gpu_jit-for_each-k1000}
+            \caption*{(b) GPU. Data type: \texttt{float}.}
+      \end{minipage}
       \caption{Performance of oneDPL backend for X::for\_each with $k_{it} = 1000$ with different JIT compilation modes. Lower is better.}\label{fig:oneDPL_jit_modes}
 \end{figure}
 
