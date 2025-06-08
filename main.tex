@@ -603,6 +603,30 @@ In contrast, the oneDPL-GPU backend exhibits minimal difference between
       \label{fig:gpu_float_vs_double}
 \end{figure}
 
+\section{oneDPL Backend JIT Compilation}
+The oneDPL backend uses Just-In-Time (JIT) compilation to generate code for
+parallel algorithms~\cite{onedpl:jit}.
+
+There are 4 JIT compilation modes available:
+\begin{itemize}
+      \item \texttt{per\_kernel} – generates code to do JIT compilation of a kernel only when it is called.
+      \item \texttt{per\_source} – generates code to do JIT compilation of all kernels in the source file when any of the kernels in the source file are called.
+      \item \texttt{off} – performs eager JIT compilation of all kernels in the application.
+      \item \texttt{auto} – the default, the compiler will use its heuristic to select the best way of splitting device code for JIT compilation.
+\end{itemize}
+
+The \texttt{auto} mode is the default and is the one used in all the
+experiments.
+
+The other modes were tested on CPU, but they did not yield any performance
+improvements as shown in Figure~\ref{fig:oneDPL_jit_modes}.
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=\linewidth]{figures/problemSize_time_onedpl-cpu_jit-for_each-k1000}
+      \caption{Performance of oneDPL backend with different JIT compilation modes. Lower is better.}\label{fig:oneDPL_jit_modes}
+\end{figure}
+
 \section{Conclusions}
 
 This work reproduced and extended the pSTL-Bench benchmark to evaluate the
@@ -640,7 +664,7 @@ original benchmark suite, the oneDPL backend integration, the Ansible
 automation scripts, the Semaphore UI configuration, the R scripts for analyzing
 and plotting results, and the documentation for adding new backends.
 
-The data used for the experiments and this report are publicly available in the 
+The data used for the experiments and this report are publicly available in the
 report of the GitHub repository~\cite{pSTL-Bench-report:github} which also
 includes this report in LaTeX format.
 
@@ -683,6 +707,10 @@ includes this report in LaTeX format.
       \bibitem{google_benchmark:governor}
       Google Benchmark, ``Reducing Variance, Disabling CPU Frequency Scaling'' \textit{Google Benchmark Documentation},
       \url{https://google.github.io/benchmark/reducing_variance.html}
+
+      \bibitem{onedpl:jit}
+      Intel, ``oneAPI DPC++ Library (oneDPL) JIT Compilation'' \textit{oneDPL Documentation},
+      \url{https://www.intel.com/content/www/us/en/docs/oneapi/optimization-guide-gpu/2025-0/just-in-time-compilation.html}
 
       \bibitem{pSTL-Bench-report:github}
       ``Extending and Reproducing pSTL-Bench: oneDPL Backend Integration and Enhanced Reproducibility'' \textit{GitHub Repository},
