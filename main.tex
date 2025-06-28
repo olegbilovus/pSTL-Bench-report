@@ -639,6 +639,52 @@ yield any performance improvements.
       \caption{Performance of oneDPL backend for X::for\_each with $k_{it} = 1000$ with different JIT compilation modes. Lower is better.}\label{fig:oneDPL_jit_modes}
 \end{figure}
 
+\section{Reproducibility and Portability on the Cloud}
+
+To assess the portability and reproducibility of the results, the experiments
+were also conducted on a cloud platform. The cloud provider selected was
+\textit{Hetzner}, using a \textit{CCX53} instance type equipped with an AMD
+processor featuring 32 dedicated vCPUs and 128\,GB of RAM.
+
+Overall, the results obtained in the cloud environment were consistent with
+those observed on local hardware. The oneDPL backend on the CPU continued to
+underperform compared to the other implementations.
+
+All backends demonstrated improved performance on the cloud platform relative
+to local hardware, likely due to the superior AMD processor used in the cloud
+instance compared to the Intel processor in the laptop.
+
+Figure~\ref{fig:cloud_speedup} presents the execution time and speedup of
+\texttt{for\_each} algorithm with $k_{it} = 1000$ on the cloud platform. The
+trends align closely with local results: the NVIDIA with OMP backend
+outperforms slightly the oneDPL on CPU backend. However, the speedups achieved
+by all backends are closer to ideal compared to the local hardware shown in
+Figure~\ref{fig:speedup_threads-for_each}.
+
+\begin{figure}[H]
+      \centering
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/problemSize_time-hetzner_amd-for_each-k1000}
+            \caption*{(a) Problem scaling. Lower is better.}
+      \end{minipage}
+      \hfill
+      \begin{minipage}[t]{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figures/speedup_threads-hetzner_amd-for_each-k1000}
+            \caption*{(b) Strong scaling with $2^{30}$ elements. Higher is better.}
+      \end{minipage}
+      \caption{Results for X::for\_each on the cloud platform.}\label{fig:cloud_speedup}
+\end{figure}
+
+The other algorithms were also evaluated on the cloud platform, yielding
+results that were consistent with those obtained on local hardware. The
+corresponding figures are omitted here for brevity but are available in the
+report hosted in the GitHub repository~\cite{pSTL-Bench-report:github}.
+
+The GPU backends were not tested on the cloud platform due to the lack of GPU
+support.
+
 \section{Conclusions}
 
 This work reproduced and extended the pSTL-Bench benchmark to evaluate the

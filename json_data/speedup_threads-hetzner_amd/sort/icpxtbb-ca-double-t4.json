@@ -1,0 +1,57 @@
+{
+  "context": {
+    "date": "2025-06-28T11:41:35+00:00",
+    "host_name": "ubuntu",
+    "executable": "/home/ubuntu/pSTL-Bench/builds/icpxtbb-ca-double/pSTL-Bench",
+    "num_cpus": 32,
+    "mhz_per_cpu": 2400,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 32768,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 524288,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 33554432,
+        "num_sharing": 32
+      }
+    ],
+    "load_avg": [2.11426,1.75342,1.58057],
+    "library_build_type": "release",
+    "tbb #threads": "4"
+  },
+  "benchmarks": [
+    {
+      "name": "IntelLLVM-TBB/std::sort/double/1073741824/manual_time",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "IntelLLVM-TBB/std::sort/double/1073741824/manual_time",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 3.7687752389000000e+10,
+      "cpu_time": 7.9743270203000000e+10,
+      "time_unit": "ns",
+      "bytes_per_second": 6.8377130941672933e+08,
+      "used_threads": 4.0000000000000000e+00
+    }
+  ]
+}
