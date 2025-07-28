@@ -131,6 +131,7 @@ and the configuration of the parallel STL implementations.
 \mypar{Hardware Platform}
 The benchmarks were executed on a \textit{DELL G16 7630} laptop connected to external power,
 with hardware specifications listed in Table~\ref{tab:hardware-config}.
+In addition, the hardware topology is illustrated in Figure~\ref{fig:topology},
 
 \begin{table}[H]
       \centering
@@ -141,6 +142,7 @@ with hardware specifications listed in Table~\ref{tab:hardware-config}.
             \hline
             Processor      & Intel Core i9-13900HX              \\
             Cores          & 24 (8 P-cores + 16 E-cores)        \\
+            HyperThreads   & 8 hyperthreads in the P-cores      \\
             Core Frequency & 2.20 GHz (up to 5.40 GHz)          \\
             Threads        & 32 threads                         \\
             Memory         & 32 GB RAM                          \\
@@ -243,8 +245,10 @@ performance improvements—particularly for the \texttt{for\_each} and
 allocator.
 
 In this evaluation, no substantial performance difference was observed between
-the custom and default allocators. The measured results are presented in
-Figure~\ref{fig:speedup_customAllocator}.
+the custom and default allocators because the custom allocator targets
+\texttt{NUMA} systems, but the tested hardware has only a single \texttt{NUMA}
+node as shown in the topology in Figure~\ref{fig:topology}. The measured
+results are presented in Figure~\ref{fig:speedup_customAllocator}.
 
 Despite the minimal performance impact in this setting, the custom allocator
 was retained to ensure consistency with the methodology of the original study.
@@ -396,11 +400,11 @@ lowest performance, even falling below the sequential baseline.
 \end{figure}
 
 \subsection{X::reduce}
-The \texttt{find} algorithm computes a single result by summing all elements in
-a given range.
+The \texttt{reduce} algorithm computes a single result by summing all elements
+in a given range.
 
 Figure~\ref{fig:x::reduce} presents the execution time and speedup for the
-\texttt{find} algorithm.
+\texttt{reduce} algorithm.
 
 Sequential execution significantly outperforms parallel implementations for
 small problem sizes. However, as the problem size increases, parallel backends
@@ -432,9 +436,9 @@ limitations of the underlying hardware architecture.
 \end{figure}
 
 \subsection{X::sort}
-The \texttt{find} algorithm rearranges elements in ascending order.
+The \texttt{sort} algorithm rearranges elements in ascending order.
 
-Figure~\ref{fig:x::sort} presents the execution time for the \texttt{find}
+Figure~\ref{fig:x::sort} presents the execution time for the \texttt{sort}
 algorithm.
 
 The results are consistent with those reported in the original pSTL-Bench
@@ -607,7 +611,7 @@ In contrast, the oneDPL-GPU backend exhibits minimal difference between
 The oneDPL backend uses Just-In-Time (JIT) compilation to generate code for
 parallel algorithms~\cite{onedpl:jit}.
 
-There are 4 JIT compilation modes available:
+There are four JIT compilation modes available:
 \begin{itemize}
       \item \texttt{per\_kernel} – generates code to do JIT compilation of a kernel only when it is called.
       \item \texttt{per\_source} – generates code to do JIT compilation of all kernels in the source file when any of the kernels in the source file are called.
@@ -775,6 +779,15 @@ includes this report in LaTeX format.
       \url{https://github.com/olegbilovus/pSTL-Bench-report}
 
 \end{thebibliography}
+
+\newpage
+\onecolumn
+\section*{Appendix: Hardware Topology}
+\begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{figures/topology}
+      \caption{DELL G16 7630 topology created using \texttt{lstopo} command from the \texttt{hwloc} library.}\label{fig:topology}
+\end{figure}
 
 \end{document}
 
